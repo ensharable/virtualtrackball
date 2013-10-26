@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div id="templatemo_main" align="center">
+			
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/gl-matrix.js"></script>
+	<script type="text/javascript" src="js/sylvester.src.js"></script>
+	<script type="text/javascript" src="js/Three.js"></script>
+	<script type="text/javascript" src="js/Quaternion.js"></script>
+	<script type="text/javascript" src="js/Vector3.js"></script>
+	<script type="text/javascript" src="js/Matrix4.js"></script>
+	<script type="text/javascript" src="js/glUtils.js"></script>
+ 	<script type="text/javascript" src="js/VirtualTrackBall.js"></script>
+ 	<script type="text/javascript" src="js/CanvasVTB.js"></script>
+ 		<script type="text/javascript" src="js/Vector.js"></script>
+ 	
+	<script type="text/javascript">
+		var vtb = new Ensharable.VirtualTrackBall();	
+		vtb.setWinSize(100,100);
+		var v1=vtb.getTrackBallVector(25, 25);
+		console.log(v1);
+		var v2=vtb.getTrackBallVector(75, 25);
+		console.log(v2);
+		
+		var v3 = v2.clone();
+		console.log(v3);
+		v2.x=1000;
+		console.log(v3);
+		console.log(v2);
+		
+		vtb.setRotationStart(25, 25);
+		vtb.rotateTo(75, 25);
+		
+		
+	</script>
+
+	<p>
+		<canvas id="webglCanvas" style="border: none;" width="500" height="500">
+			Your browser doesn't appear to support the HTML5
+			<code>
+				&lt;canvas&gt;
+			</code>
+			element.
+		</canvas>
+	</p>
+
+</div>
+
+</body>
+</html>
