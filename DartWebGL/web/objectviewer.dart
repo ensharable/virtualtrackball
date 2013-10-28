@@ -29,12 +29,15 @@ class Objectviewer{
       
       bind();
       
-      Box.setup(glContext);
       ObjectViewerShader shader = new ObjectViewerShader(glContext);
       shader.prepare();
+      shader.enable();
 
+      Box.setup(glContext);
       Box.bindToProgram(glContext, shader.program);
       
+      Box.prerender(glContext);
+      Box.render(glContext);
   }
 
   

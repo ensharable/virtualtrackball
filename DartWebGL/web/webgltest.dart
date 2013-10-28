@@ -10,13 +10,14 @@ import 'dart:typed_data';
 import 'package:vector_math/vector_math.dart';
 
 part 'objectviewer.dart';
+part 'shader.dart';
 part 'objectviewer_shader.dart';
 part 'sphere_controller.dart';
 part 'camera.dart';
-part 'shader.dart';
 part 'box.dart';
 
 Objectviewer application = new Objectviewer();
+final bool VERBOSE = false;
 
 void main() {
   querySelector("#sample_text_id")

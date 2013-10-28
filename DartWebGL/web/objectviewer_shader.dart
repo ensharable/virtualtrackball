@@ -19,7 +19,7 @@ class ObjectViewerShader {
   void prepare() {
     shader.compile(gl);
     shader.link(gl);
-    mvUniformLocation  = gl.getUniformLocation(program, 'mvUniform');
+    mvUniformLocation  = gl.getUniformLocation(program, 'uMVMatrix');
     pUniformLocation = gl.getUniformLocation(program, 'uPMatrix');
   }
 
@@ -41,7 +41,7 @@ class ObjectViewerShader {
 }
 
 final String _vertexShader = '''
-    attribute vec3 aVertexPosition;
+   attribute vec3 aVertexPosition;
     attribute vec4 aVertexColor;
 
     uniform mat4 uMVMatrix;
@@ -50,23 +50,15 @@ final String _vertexShader = '''
     varying lowp vec4 vColor;
 
     void main(void) {
-      gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
-      vColor = aVertexColor;
+    gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+    vColor = aVertexColor;
     }
-}
 ''';
 
 final String _fragmentShader = '''
-    attribute vec3 aVertexPosition;
-    attribute vec4 aVertexColor;
-
-    uniform mat4 uMVMatrix;
-    uniform mat4 uPMatrix;
-
     varying lowp vec4 vColor;
-
-    void main(void) {
-      gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
-      vColor = aVertexColor;
-    }
+      
+      void main(void) {
+        gl_FragColor = vColor;
+      }
 ''';
