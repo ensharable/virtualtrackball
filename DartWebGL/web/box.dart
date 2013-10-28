@@ -132,6 +132,9 @@ class Box{
   }
 
   static void render(WebGL.RenderingContext gl) {
+    mvMatrix = new Matrix.identity();
+    pMatrix = new Matrix.identity();
+    
     gl.clear(WebGL.RenderingContext.COLOR_BUFFER_BIT | WebGL.RenderingContext.DEPTH_BUFFER_BIT);
     //draw the cube according to the index buffer
     gl.bindBuffer(WebGL.RenderingContext.ELEMENT_ARRAY_BUFFER, indexBuffer);
