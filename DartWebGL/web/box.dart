@@ -61,10 +61,6 @@ class Box{
                   WebGL.RenderingContext.STATIC_DRAW);
     
     
-    
-
-    
-    
     // Convert the array of colors into a table for all the vertices.
     var colors = [
                   [1.0,  1.0,  1.0,  1.0],    // Front face: white
@@ -91,7 +87,6 @@ class Box{
     
     
     // Index for the cube
-    
     var vertexIndices = [
            0,  1,  2,      0,  2,  3,    // front
            4,  5,  6,      4,  6,  7,    // back
@@ -117,25 +112,26 @@ class Box{
 
   static void prerender(WebGL.RenderingContext gl) {
     //bind the vertex buff to shader   
-    //gl.bindBuffer(WebGL.RenderingContext.ARRAY_BUFFER, vertexBuffer);
+    gl.bindBuffer(WebGL.RenderingContext.ARRAY_BUFFER, vertexBuffer);
     gl.vertexAttribPointer(_positionAttributeIndex,
                            3, WebGL.RenderingContext.FLOAT, // 3 floats
                            false, 0,
                            0); // 0 offset
     
     //bind the color buff to shader
-    //gl.bindBuffer(WebGL.RenderingContext.ARRAY_BUFFER, verticesColorBuffer);
+    gl.bindBuffer(WebGL.RenderingContext.ARRAY_BUFFER, verticesColorBuffer);
     gl.vertexAttribPointer(_colorAttributeIndex,
                            4, WebGL.RenderingContext.FLOAT,
                            false, 0,
                            0);
   }
+  
 
   static void render(WebGL.RenderingContext gl) {
-    mvMatrix = new Matrix.identity();
-    pMatrix = new Matrix.identity();
-    
+    gl.viewport(0, 0, 500, 500);
     gl.clear(WebGL.RenderingContext.COLOR_BUFFER_BIT | WebGL.RenderingContext.DEPTH_BUFFER_BIT);
+    
+    
     //draw the cube according to the index buffer
     gl.bindBuffer(WebGL.RenderingContext.ELEMENT_ARRAY_BUFFER, indexBuffer);
     gl.drawElements(WebGL.RenderingContext.TRIANGLES, 36,

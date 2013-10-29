@@ -12,6 +12,7 @@ class Objectviewer{
     bool ownMouse = false;
     Box abox;
     ObjectViewerShader shader;
+    Matrix mvMatrix = new Matrix(); 
 
     void startup(String canvasId) {
       canvas = querySelector(canvasId);
@@ -22,7 +23,7 @@ class Objectviewer{
       }
       abox = new Box();
       
-      canvas.width = (canvas.parent as Element).client.width;
+      canvas.width = canvas.parent.client.width;
       canvas.height = canvas.parent.client.height;
       
       camera.aspectRatio = canvas.width / canvas.height;
@@ -32,13 +33,24 @@ class Objectviewer{
       ObjectViewerShader shader = new ObjectViewerShader(glContext);
       shader.prepare();
       shader.enable();
+      
+      //set the matrix:
+      Camera cam = new Camera();
+      shader.pUniform = cam.projectionMatrix;
+      
+      mvMatrix = Matrix.identity();
+      Vector3 v =Vector3.fromValues(0.0, 0.0, -6.0);
+      
+      mvMatrix = Matrix.Translate(mvMatrix, v);
+      shader.mvUniform = mvMatrix;
+      
 
       Box.setup(glContext);
       Box.bindToProgram(glContext, shader.program);
       
       Box.prerender(glContext);
       Box.render(glContext);
-  }
+    }
 
   
 

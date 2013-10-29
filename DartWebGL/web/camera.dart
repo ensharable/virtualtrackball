@@ -14,17 +14,17 @@ class Camera {
   double fOV;
 
   Camera() {
-    eyePosition = new Vector3(0.0, 2.0, 0.0);
-    lookAtPosition = new Vector3(1.0, 2.0, -1.0);
+    eyePosition = new Vector3(0.0, 0.0, 0.0);
+    lookAtPosition = new Vector3(1.0, 0.0, -1.0);
     upDirection = new Vector3(0.0, 1.0, 0.0);
-
+    
     // Note: this was originally set to 0.785398163 (90 degrees).  Different
     // settings of fOV produce different visual results. Neither number is
     // incorrect.
-    fOV = 0.35;
-    zNear = 1.0;
-    zFar = 1000.0;
-    aspectRatio = 1.7777778;
+    fOV = 45.0;
+    zNear = 0.1;
+    zFar = 100.0;
+    aspectRatio = 1.0;
   }
 
   String toString() {
