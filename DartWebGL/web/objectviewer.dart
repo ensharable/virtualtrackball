@@ -12,7 +12,7 @@ class Objectviewer{
     bool ownMouse = false;
     Box abox;
     ObjectViewerShader shader;
-    Matrix mvMatrix = new Matrix(); 
+    Matrix4 mvMatrix;
 
     void startup(String canvasId) {
       canvas = querySelector(canvasId);
@@ -38,10 +38,9 @@ class Objectviewer{
       Camera cam = new Camera();
       shader.pUniform = cam.projectionMatrix;
       
-      mvMatrix = Matrix.identity();
-      Vector3 v =Vector3.fromValues(0.0, 0.0, -6.0);
-      
-      mvMatrix = Matrix.Translate(mvMatrix, v);
+      mvMatrix = new Matrix4.identity();
+      Vector3 v = new Vector3(0.0, 0.0, -6.0);
+      mvMatrix = new Matrix4.translation(v);
       shader.mvUniform = mvMatrix;
       
 

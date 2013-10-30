@@ -9,7 +9,6 @@ import 'dart:typed_data';
 
 
 import 'package:vector_math/vector_math.dart';
-import 'package:glmatrix/glmatrix.dart';
 
 part 'objectviewer.dart';
 part 'shader.dart';
