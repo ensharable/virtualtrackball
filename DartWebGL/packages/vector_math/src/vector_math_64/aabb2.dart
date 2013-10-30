@@ -19,7 +19,7 @@
 
 */
 
-part of vector_math;
+part of vector_math_64;
 
 class Aabb2 {
   final Vector2 _min;
@@ -121,34 +121,19 @@ class Aabb2 {
   }
 
   /// Return if [this] contains [other].
-  bool containsAabb2(Aabb2 other) {
+  bool contains(Aabb2 other) {
     return min.x < other.min.x &&
            min.y < other.min.y &&
            max.y > other.max.y &&
            max.x > other.max.x;
   }
 
-  /// Return if [this] contains [other].
-  bool containsVector2(Vector2 other) {
-    return min.x < other.x &&
-           min.y < other.y &&
-           max.x > other.x &&
-           max.y > other.y;
-  }
-
   /// Return if [this] intersects with [other].
-  bool intersectsWithAabb2(Aabb2 other) {
+  bool intersectsWith(Aabb2 other) {
     return min.x <= other.max.x &&
            min.y <= other.max.y &&
            max.x >= other.min.x &&
            max.y >= other.min.y;
   }
 
-  /// Return if [this] intersects with [other].
-  bool intersectsWithVector2(Vector2 other) {
-    return min.x <= other.x &&
-           min.y <= other.y &&
-           max.x >= other.x &&
-           max.y >= other.y;
-  }
 }

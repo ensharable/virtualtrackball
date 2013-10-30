@@ -167,12 +167,37 @@ class Vector2 {
     return out.normalize();
   }
 
+  /// Distance from [this] to [arg]
+  double distanceTo(Vector2 arg) {
+    return this.clone().sub(arg).length;
+  }
+
+  /// Squared distance from [this] to [arg]
+  double distanceToSquared(Vector2 arg) {
+    return this.clone().sub(arg).length2;
+  }
+
   /// Inner product.
   double dot(Vector2 other) {
     double sum;
     sum = storage[0] * other.storage[0];
     sum += storage[1] * other.storage[1];
     return sum;
+  }
+  
+  /**
+   * Transforms [this] into the product of [this] as a row vector,
+   * postmultiplied by matrix, [arg].
+   * If [arg] is a rotation matrix, this is a computational shortcut for applying,
+   * the inverse of the transformation.
+   */
+  Vector2 postmultiply(Matrix2 arg) {
+    double v0 = storage[0];
+    double v1 = storage[1];
+    storage[0] = v0*arg.storage[0]+v1*arg.storage[1];
+    storage[1] = v0*arg.storage[2]+v1*arg.storage[3];
+    
+    return this;
   }
 
   /// Cross product.

@@ -114,20 +114,41 @@ class Aabb2 {
     max.y = Math.max(_max.y, other.max.y);
   }
 
+  /// Set the min and max of [this] so that [this] contains [point].
+  void hullPoint(Vector2 point) {
+    Vector2.min(_min, point, _min);
+    Vector2.max(_max, point, _max);
+  }
+
   /// Return if [this] contains [other].
-  bool contains(Aabb2 other) {
+  bool containsAabb2(Aabb2 other) {
     return min.x < other.min.x &&
            min.y < other.min.y &&
            max.y > other.max.y &&
            max.x > other.max.x;
   }
 
+  /// Return if [this] contains [other].
+  bool containsVector2(Vector2 other) {
+    return min.x < other.x &&
+           min.y < other.y &&
+           max.x > other.x &&
+           max.y > other.y;
+  }
+
   /// Return if [this] intersects with [other].
-  bool intersectsWith(Aabb2 other) {
+  bool intersectsWithAabb2(Aabb2 other) {
     return min.x <= other.max.x &&
            min.y <= other.max.y &&
            max.x >= other.min.x &&
            max.y >= other.min.y;
   }
 
+  /// Return if [this] intersects with [other].
+  bool intersectsWithVector2(Vector2 other) {
+    return min.x <= other.x &&
+           min.y <= other.y &&
+           max.x >= other.x &&
+           max.y >= other.y;
+  }
 }
