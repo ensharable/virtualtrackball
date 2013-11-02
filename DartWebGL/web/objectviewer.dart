@@ -28,28 +28,12 @@ class Objectviewer{
       
       camera.aspectRatio = canvas.width / canvas.height;
       
-      bind();
+      inputBind();
       
-      ObjectViewerShader shader = new ObjectViewerShader(glContext);
-      shader.prepare();
-      shader.enable();
+      var me = new MotionEngine(abox, glContext);
+      me.start();
       
-      //set the matrix:
-      Camera cam = new Camera();
-      shader.pUniform = cam.projectionMatrix;
-      
-      mvMatrix = new Matrix4.identity();
-      Vector3 v = new Vector3(0.0, 0.0, -6.0);
-      mvMatrix = new Matrix4.translation(v);
-      shader.mvUniform = mvMatrix;
-      
-
-      Box.setup(glContext);
-      Box.bindToProgram(glContext, shader.program);
-      
-      Box.prerender(glContext);
-      Box.render(glContext);
-    }
+  }
 
   
 
@@ -140,7 +124,7 @@ class Objectviewer{
 
  
   // Bind input event callbacks
-  void bind() {
+  void inputBind() {
     document.onPointerLockChange.listen(pointerLockChange);
     canvas.onClick.listen(clicked);
     document.onKeyDown.listen(keydown);

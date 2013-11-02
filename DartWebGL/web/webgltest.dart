@@ -15,6 +15,7 @@ part 'objectviewer_shader.dart';
 part 'sphere_controller.dart';
 part 'camera.dart';
 part 'box.dart';
+part 'MotionEngine.dart';
 
 Objectviewer application = new Objectviewer();
 final bool VERBOSE = false;
