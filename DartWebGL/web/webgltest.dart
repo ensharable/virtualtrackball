@@ -17,6 +17,7 @@ part 'camera.dart';
 part 'objects/shapes.dart';
 part 'objects/box.dart';
 part 'objects/hexagon.dart';
+part 'objects/strip.dart';
 part 'MotionEngine.dart';
 part 'InputController.dart';
 

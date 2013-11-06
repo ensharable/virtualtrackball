@@ -4,6 +4,7 @@ class MotionEngine{
   Matrix4 _tranMatrix = new Matrix4.identity();
   Box abox;
   Hexagon hexagon;
+  Strip strip;
   ObjectViewerShader shader;
   WebGL.RenderingContext glContext;
   
@@ -21,6 +22,9 @@ class MotionEngine{
     
     hexagon = new Hexagon(glContext, shader.program);
     hexagon.setupBuffers();
+    
+    strip = new Strip(glContext, shader.program);
+    strip.setupBuffers();
   }
   
   void start(){
@@ -51,6 +55,10 @@ class MotionEngine{
     hexagon.modifyShaderAttributes();
     hexagon.prerender();
     hexagon.render();
+    
+    strip.modifyShaderAttributes();
+    strip.prerender();
+    strip.render();
     
     requestRedraw();
   }

@@ -5,6 +5,7 @@ class Hexagon extends Shapes {
   int _itemSize=0;
   int _numberOfItems;
   int _positionAttributeIndex;
+  int _colorAttributeIndex;
   
   Hexagon(WebGL.RenderingContext gl, WebGL.Program p) : super(gl, p){
   }
@@ -36,6 +37,9 @@ class Hexagon extends Shapes {
   }
   
   void modifyShaderAttributes() {
+    _colorAttributeIndex = _gl.getAttribLocation(_program, 'aVertexColor');
+    _gl.disableVertexAttribArray(_colorAttributeIndex);
+    
     _positionAttributeIndex = _gl.getAttribLocation(_program, 'aVertexPosition');
     _gl.enableVertexAttribArray(_positionAttributeIndex);
   }
@@ -47,6 +51,7 @@ class Hexagon extends Shapes {
                            _itemSize, WebGL.RenderingContext.FLOAT, // 3 floats
                            false, 0,
                            0); // 0 offset
+    _gl.vertexAttrib4f(_colorAttributeIndex, 0.0, 0.0, 0.0, 1.0);
   }
   
 
