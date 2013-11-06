@@ -1,16 +1,19 @@
 part of objectviewer;
 
-class Box{
-  static WebGL.Buffer indexBuffer;
-  static WebGL.Buffer vertexBuffer;
-  static WebGL.Buffer verticesColorBuffer;
-  static int _vertexCount=36;  //this is becuse of the box data
-  static int _vertexStride=0; //this is becuse of the box data
-  static int _positionAttributeIndex;
-  static int _colorAttributeIndex;
+class Box extends Shapes {
+  WebGL.Buffer indexBuffer;
+  WebGL.Buffer vertexBuffer;
+  WebGL.Buffer verticesColorBuffer;
+  int _vertexCount=36;  //this is becuse of the box data
+  int _vertexStride=0; //this is becuse of the box data
+  int _positionAttributeIndex;
+  int _colorAttributeIndex;
   
-  static void setup(WebGL.RenderingContext gl) {
-    assert(gl != null);
+  Box(WebGL.RenderingContext gl, WebGL.Program p) : super(gl, p){
+  }
+
+  void setupBuffers() {
+    assert(_gl != null);
 
     var vertices = [
       // Front face
@@ -51,12 +54,12 @@ class Box{
       ];
     
     //Create WebGL Buffer to store vertices data.
-    vertexBuffer = gl.createBuffer();
-    gl.bindBuffer(WebGL.RenderingContext.ARRAY_BUFFER, vertexBuffer);
+    vertexBuffer = _gl.createBuffer();
+    _gl.bindBuffer(WebGL.RenderingContext.ARRAY_BUFFER, vertexBuffer);
     //cover the arry to Float32List
     var vertexArray = new Float32List.fromList(vertices);
     //fill the buff using the data in Float32List
-    gl.bufferDataTyped(WebGL.RenderingContext.ARRAY_BUFFER,
+    _gl.bufferDataTyped(WebGL.RenderingContext.ARRAY_BUFFER,
                   vertexArray,
                   WebGL.RenderingContext.STATIC_DRAW);
     
@@ -80,9 +83,9 @@ class Box{
       }
     }
     var colorArray = new Float32List.fromList(generatedColors);
-    verticesColorBuffer = gl.createBuffer();
-    gl.bindBuffer(WebGL.RenderingContext.ARRAY_BUFFER, verticesColorBuffer);
-    gl.bufferDataTyped(WebGL.RenderingContext.ARRAY_BUFFER, colorArray,
+    verticesColorBuffer = _gl.createBuffer();
+    _gl.bindBuffer(WebGL.RenderingContext.ARRAY_BUFFER, verticesColorBuffer);
+    _gl.bufferDataTyped(WebGL.RenderingContext.ARRAY_BUFFER, colorArray,
         WebGL.RenderingContext.STATIC_DRAW);
     
     
@@ -96,45 +99,45 @@ class Box{
            20, 21, 22,     20, 22, 23    // left
            ];
     var indexArray = new Uint16List.fromList(vertexIndices);
-    indexBuffer = gl.createBuffer();
-    gl.bindBuffer(WebGL.RenderingContext.ELEMENT_ARRAY_BUFFER, indexBuffer);
-    gl.bufferDataTyped(WebGL.RenderingContext.ELEMENT_ARRAY_BUFFER,
+    indexBuffer = _gl.createBuffer();
+    _gl.bindBuffer(WebGL.RenderingContext.ELEMENT_ARRAY_BUFFER, indexBuffer);
+    _gl.bufferDataTyped(WebGL.RenderingContext.ELEMENT_ARRAY_BUFFER,
                   indexArray,
                   WebGL.RenderingContext.STATIC_DRAW);
   }
   
-  static void bindToProgram(WebGL.RenderingContext gl, WebGL.Program program) {
-    _positionAttributeIndex = gl.getAttribLocation(program, 'aVertexPosition');
-    gl.enableVertexAttribArray(_positionAttributeIndex);
-    _colorAttributeIndex = gl.getAttribLocation(program, 'aVertexColor');
-    gl.enableVertexAttribArray(_colorAttributeIndex);
+  void bindToProgram() {
+    _positionAttributeIndex = _gl.getAttribLocation(_program, 'aVertexPosition');
+    _gl.enableVertexAttribArray(_positionAttributeIndex);
+    _colorAttributeIndex = _gl.getAttribLocation(_program, 'aVertexColor');
+    _gl.enableVertexAttribArray(_colorAttributeIndex);
   }
 
-  static void prerender(WebGL.RenderingContext gl) {
+  void prerender() {
     //bind the vertex buff to shader   
-    gl.bindBuffer(WebGL.RenderingContext.ARRAY_BUFFER, vertexBuffer);
-    gl.vertexAttribPointer(_positionAttributeIndex,
+    _gl.bindBuffer(WebGL.RenderingContext.ARRAY_BUFFER, vertexBuffer);
+    _gl.vertexAttribPointer(_positionAttributeIndex,
                            3, WebGL.RenderingContext.FLOAT, // 3 floats
                            false, 0,
                            0); // 0 offset
     
     //bind the color buff to shader
-    gl.bindBuffer(WebGL.RenderingContext.ARRAY_BUFFER, verticesColorBuffer);
-    gl.vertexAttribPointer(_colorAttributeIndex,
+    _gl.bindBuffer(WebGL.RenderingContext.ARRAY_BUFFER, verticesColorBuffer);
+    _gl.vertexAttribPointer(_colorAttributeIndex,
                            4, WebGL.RenderingContext.FLOAT,
                            false, 0,
                            0);
   }
   
 
-  static void render(WebGL.RenderingContext gl) {
-    gl.viewport(0, 0, 500, 500);
-    gl.clear(WebGL.RenderingContext.COLOR_BUFFER_BIT | WebGL.RenderingContext.DEPTH_BUFFER_BIT);
+  void render() {
+    _gl.viewport(0, 0, 500, 500);
+    _gl.clear(WebGL.RenderingContext.COLOR_BUFFER_BIT | WebGL.RenderingContext.DEPTH_BUFFER_BIT);
     
     
     //draw the cube according to the index buffer
-    gl.bindBuffer(WebGL.RenderingContext.ELEMENT_ARRAY_BUFFER, indexBuffer);
-    gl.drawElements(WebGL.RenderingContext.TRIANGLES, 36,
+    _gl.bindBuffer(WebGL.RenderingContext.ELEMENT_ARRAY_BUFFER, indexBuffer);
+    _gl.drawElements(WebGL.RenderingContext.TRIANGLES, 36,
                     WebGL.RenderingContext.UNSIGNED_SHORT, 0);
   }
 }

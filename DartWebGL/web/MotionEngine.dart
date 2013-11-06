@@ -38,11 +38,12 @@ class MotionEngine{
     
     shader.mvUniform = _tranMatrix;
 
-    Box.setup(glContext);
-    Box.bindToProgram(glContext, shader.program);
+    Box abox = new Box(glContext, shader.program);
+    abox.setupBuffers();
+    abox.bindToProgram();
     
-    Box.prerender(glContext);
-    Box.render(glContext);
+    abox.prerender();
+    abox.render();
     
     requestRedraw();
   }

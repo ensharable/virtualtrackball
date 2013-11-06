@@ -21,8 +21,6 @@ class Objectviewer{
         canvas.parent.text = ">>> Browser does not support WebGL <<<";
         return;
       }
-      abox = new Box();
-      
       canvas.width = canvas.parent.client.width;
       canvas.height = canvas.parent.client.height;
       
