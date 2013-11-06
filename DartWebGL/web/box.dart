@@ -106,7 +106,7 @@ class Box extends Shapes {
                   WebGL.RenderingContext.STATIC_DRAW);
   }
   
-  void bindToProgram() {
+  void modifyShaderAttributes() {
     _positionAttributeIndex = _gl.getAttribLocation(_program, 'aVertexPosition');
     _gl.enableVertexAttribArray(_positionAttributeIndex);
     _colorAttributeIndex = _gl.getAttribLocation(_program, 'aVertexColor');
@@ -114,13 +114,17 @@ class Box extends Shapes {
   }
 
   void prerender() {
-    //bind the vertex buff to shader   
+    //bind the vertex buff to shader  
+    
     _gl.bindBuffer(WebGL.RenderingContext.ARRAY_BUFFER, vertexBuffer);
     _gl.vertexAttribPointer(_positionAttributeIndex,
                            3, WebGL.RenderingContext.FLOAT, // 3 floats
                            false, 0,
                            0); // 0 offset
     
+    //bind the index buffer to shader
+    _gl.bindBuffer(WebGL.RenderingContext.ELEMENT_ARRAY_BUFFER, indexBuffer);
+
     //bind the color buff to shader
     _gl.bindBuffer(WebGL.RenderingContext.ARRAY_BUFFER, verticesColorBuffer);
     _gl.vertexAttribPointer(_colorAttributeIndex,
@@ -131,12 +135,7 @@ class Box extends Shapes {
   
 
   void render() {
-    _gl.viewport(0, 0, 500, 500);
-    _gl.clear(WebGL.RenderingContext.COLOR_BUFFER_BIT | WebGL.RenderingContext.DEPTH_BUFFER_BIT);
-    
-    
     //draw the cube according to the index buffer
-    _gl.bindBuffer(WebGL.RenderingContext.ELEMENT_ARRAY_BUFFER, indexBuffer);
     _gl.drawElements(WebGL.RenderingContext.TRIANGLES, 36,
                     WebGL.RenderingContext.UNSIGNED_SHORT, 0);
   }

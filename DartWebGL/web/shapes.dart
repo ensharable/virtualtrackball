@@ -1,6 +1,6 @@
 part of objectviewer;
 
-class Shapes{
+abstract class Shapes{
   WebGL.RenderingContext _gl;
   WebGL.Program _program;
   
@@ -8,4 +8,9 @@ class Shapes{
     this._gl=gl;
     this._program=p;
   }
+  
+  void setupBuffers();
+  void modifyShaderAttributes();
+  void prerender();
+  void render();
 }

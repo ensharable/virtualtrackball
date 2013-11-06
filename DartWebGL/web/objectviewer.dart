@@ -27,7 +27,7 @@ class Objectviewer{
       camera.aspectRatio = canvas.width / canvas.height;
       
       InputController contrller = new InputController(this.canvas);
-      var me = new MotionEngine(abox, glContext);
+      var me = new MotionEngine(glContext);
       me.start();
       
   }

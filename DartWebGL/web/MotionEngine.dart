@@ -2,12 +2,12 @@ part of objectviewer;
 
 class MotionEngine{
   Matrix4 _tranMatrix = new Matrix4.identity();
-  Box _b;
+  Box abox;
+  Hexagon hexagon;
   ObjectViewerShader shader;
   WebGL.RenderingContext glContext;
   
-  MotionEngine(Box b, WebGL.RenderingContext glContext){
-    this._b = b;
+  MotionEngine(WebGL.RenderingContext glContext){
     this.glContext = glContext;
     shader = new ObjectViewerShader(glContext);
     shader.prepare();
@@ -15,6 +15,12 @@ class MotionEngine{
     
     Vector3 v = new Vector3(0.0, 0.0, -6.0);
     _tranMatrix = new Matrix4.translation(v);
+    
+    abox = new Box(glContext, shader.program);
+    abox.setupBuffers();
+    
+    hexagon = new Hexagon(glContext, shader.program);
+    hexagon.setupBuffers();
   }
   
   void start(){
@@ -29,21 +35,22 @@ class MotionEngine{
   Matrix4 get tranMatrix => _tranMatrix;
   
   void update(double time){
+    glContext.viewport(0, 0, 500, 500);
+    glContext.clear(WebGL.RenderingContext.COLOR_BUFFER_BIT | WebGL.RenderingContext.DEPTH_BUFFER_BIT);
     
     //set the matrix:
     Camera cam = new Camera();
     shader.pUniform = cam.projectionMatrix;
-    
     move();
-    
     shader.mvUniform = _tranMatrix;
-
-    Box abox = new Box(glContext, shader.program);
-    abox.setupBuffers();
-    abox.bindToProgram();
     
+    abox.modifyShaderAttributes();
     abox.prerender();
     abox.render();
+
+    hexagon.modifyShaderAttributes();
+    hexagon.prerender();
+    hexagon.render();
     
     requestRedraw();
   }
