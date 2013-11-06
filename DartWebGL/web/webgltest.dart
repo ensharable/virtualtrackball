@@ -14,9 +14,9 @@ part 'shader.dart';
 part 'objectviewer_shader.dart';
 part 'sphere_controller.dart';
 part 'camera.dart';
-part 'shapes.dart';
-part 'box.dart';
-part 'hexagon.dart';
+part 'objects/shapes.dart';
+part 'objects/box.dart';
+part 'objects/hexagon.dart';
 part 'MotionEngine.dart';
 part 'InputController.dart';
 
