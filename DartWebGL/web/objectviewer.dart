@@ -9,8 +9,6 @@ class Objectviewer{
     int get width => canvas.width;
     int get height => canvas.height;
     
-    
-    Box abox;
     ObjectViewerShader shader;
     Matrix4 mvMatrix;
 
@@ -28,9 +26,8 @@ class Objectviewer{
       
       InputController contrller = new InputController(this.canvas);
       var me = new MotionEngine(glContext);
-      me.start();
-      
-  }
+      me.start(); 
+    }
 
     
     

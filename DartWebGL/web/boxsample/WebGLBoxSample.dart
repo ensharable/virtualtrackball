@@ -9,20 +9,15 @@ import 'dart:typed_data';
 
 import 'package:vector_math/vector_math.dart';
 
-part 'objectviewer.dart';
-part 'shaders/shader.dart';
-part 'shaders/objectviewer_shader.dart';
-part 'sphere_controller.dart';
-part 'camera.dart';
-part 'objects/shapes.dart';
-part 'objects/box.dart';
-part 'objects/hexagon.dart';
-part 'objects/strip.dart';
-part 'MotionEngine.dart';
-part 'InputController.dart';
+part 'boxviewer.dart';
+part '../shaders/shader.dart';
+part '../shaders/objectviewer_shader.dart';
+part '../camera.dart';
+part '../objects/shapes.dart';
+part '../objects/box.dart';
 
 
-Objectviewer application = new Objectviewer();
+Boxviewer application = new Boxviewer();
 final bool VERBOSE = false;
 
 void main() {
