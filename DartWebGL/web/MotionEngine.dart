@@ -8,7 +8,7 @@ class MotionEngine{
   ObjectViewerShader shader;
   WebGL.RenderingContext glContext;
   Camera cam = new Camera();
-  var speed = 0.01; 
+  var speed = 0.1; 
   Matrix2 counterClockWiseM = new Matrix2(0.0, 1.0, -1.0, 0.0);
   Matrix2 clockWiseM = new Matrix2(0.0, -1.0, 1.0, 0.0);
   
@@ -48,7 +48,7 @@ class MotionEngine{
     
     //set the matrix:
     var projectionMatrix = cam.projectionMatrix;
-    var viewMatrix = cam.lookAtMatrix;
+    var viewMatrix = cam.lookAtMatrixWithDirection;
     projectionMatrix.multiply(viewMatrix);
     shader.pUniform = projectionMatrix;
     

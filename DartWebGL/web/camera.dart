@@ -8,6 +8,7 @@ class Camera {
   Vector3 eyePosition;
   Vector3 upDirection;
   Vector3 lookAtPosition;
+  Vector3 lookAtDirection;
   double zNear;
   double zFar;
   double aspectRatio;
@@ -17,6 +18,7 @@ class Camera {
     eyePosition = new Vector3(0.0, 0.0, 0.0);
     lookAtPosition = new Vector3(0.0, 0.0, -1.0);
     upDirection = new Vector3(0.0, 1.0, 0.0);
+    lookAtDirection = new Vector3(0.0, 0.0, -1.0);
     
     // Note: this was originally set to 0.785398163 (90 degrees).  Different
     // settings of fOV produce different visual results. Neither number is
@@ -52,7 +54,13 @@ class Camera {
   Matrix4 get lookAtMatrix {
     return makeViewMatrix(eyePosition, lookAtPosition, upDirection);
   }
-
+  
+  Matrix4 get lookAtMatrixWithDirection {
+    return makeViewMatrixWithDirection(eyePosition, lookAtDirection, upDirection);
+  }
+  
+  
+  
   void copyProjectionMatrixIntoArray(Float32List pm) {
     var m = makePerspectiveMatrix(fOV, aspectRatio, zNear, zFar);
     m.copyIntoArray(pm);

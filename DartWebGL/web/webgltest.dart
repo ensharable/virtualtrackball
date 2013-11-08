@@ -20,7 +20,7 @@ part 'objects/hexagon.dart';
 part 'objects/strip.dart';
 part 'MotionEngine.dart';
 part 'InputController.dart';
-
+part 'openglextension.dart';
 
 Objectviewer application = new Objectviewer();
 final bool VERBOSE = false;
