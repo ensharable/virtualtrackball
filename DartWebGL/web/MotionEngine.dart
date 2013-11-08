@@ -7,6 +7,10 @@ class MotionEngine{
   Strip strip;
   ObjectViewerShader shader;
   WebGL.RenderingContext glContext;
+  Camera cam = new Camera();
+  var speed = 0.01; 
+  Matrix2 counterClockWiseM = new Matrix2(0.0, 1.0, -1.0, 0.0);
+  Matrix2 clockWiseM = new Matrix2(0.0, -1.0, 1.0, 0.0);
   
   MotionEngine(WebGL.RenderingContext glContext){
     this.glContext = glContext;
@@ -43,9 +47,17 @@ class MotionEngine{
     glContext.clear(WebGL.RenderingContext.COLOR_BUFFER_BIT | WebGL.RenderingContext.DEPTH_BUFFER_BIT);
     
     //set the matrix:
-    Camera cam = new Camera();
-    shader.pUniform = cam.projectionMatrix;
-    move();
+    var projectionMatrix = cam.projectionMatrix;
+    var viewMatrix = cam.lookAtMatrix;
+    projectionMatrix.multiply(viewMatrix);
+    shader.pUniform = projectionMatrix;
+    
+    //move();
+    //moveCamForward();
+    //moveCamBackward();
+    //moveCamLeft();
+    //moveCamRight();
+    
     shader.mvUniform = _tranMatrix;
     
     abox.modifyShaderAttributes();
@@ -63,9 +75,40 @@ class MotionEngine{
     requestRedraw();
   }
   
-  
   void requestRedraw() {
     window.animationFrame.then(update);
+  }
+  
+  void moveCamForward(){
+    Vector2 v = cam.lookAtPosition.xz;
+    v.normalize();
+    cam.eyePosition.x += v.x * speed;
+    cam.eyePosition.z += v.y * speed;
+  }
+  
+  void moveCamBackward(){
+    Vector2 v = cam.lookAtPosition.xz;
+    v.normalize();
+    cam.eyePosition.x -= v.x * speed;
+    cam.eyePosition.z -= v.y * speed;
+  }
+  
+  /**
+   * http://mathworld.wolfram.com/PerpendicularVector.html
+   */
+  void moveCamLeft(){
+    Vector2 v = cam.lookAtPosition.xz;
+    v.normalize();
+    v.postmultiply(counterClockWiseM);
+    cam.eyePosition.x -= v.x * speed;
+    cam.eyePosition.z -= v.y * speed;
+  }
+  void moveCamRight(){
+    Vector2 v = cam.lookAtPosition.xz;
+    v.normalize();
+    v.postmultiply(clockWiseM);
+    cam.eyePosition.x -= v.x * speed;
+    cam.eyePosition.z -= v.y * speed;
   }
   
 }

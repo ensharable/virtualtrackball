@@ -15,7 +15,7 @@ class Camera {
 
   Camera() {
     eyePosition = new Vector3(0.0, 0.0, 0.0);
-    lookAtPosition = new Vector3(1.0, 0.0, -1.0);
+    lookAtPosition = new Vector3(0.0, 0.0, -1.0);
     upDirection = new Vector3(0.0, 1.0, 0.0);
     
     // Note: this was originally set to 0.785398163 (90 degrees).  Different

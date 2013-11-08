@@ -4,9 +4,11 @@ class InputController {
   CanvasElement canvas;
   bool ownMouse = false;
   MouseSphereCameraController controller = new MouseSphereCameraController();
+  MotionEngine engine;
   
-  InputController(CanvasElement canvas){
+  InputController(CanvasElement canvas, MotionEngine engine){
     this.canvas = canvas;
+    this.engine = engine;
     inputBind();
   }
   
@@ -32,18 +34,30 @@ class InputController {
     }
   }
 
-  var keyCodeLeft = 37;
-  var keyCodeRight = 39;
-
-  var keyCodeE = 69;
-  var keyCodeF = 70;
-  var keyCodeJ = 74;
-  var keyCodeS = 83;
 
   void keydown(KeyboardEvent event) {
     if (!ownMouse) {
       // We don't respond to keyboard commands if we don't own the mouse
       return;
+    }
+    
+    if (event.keyCode == KeyCode.LEFT) {
+      //solarSystem.selectPreviousPlanet();
+    }
+    if (event.keyCode == KeyCode.LEFT) {
+      //solarSystem.selectNextPlanet();
+    }
+    if (event.keyCode == KeyCode.W) {
+      engine.moveCamForward();
+    }
+    if (event.keyCode == KeyCode.S) {
+      engine.moveCamBackward();
+    }
+    if (event.keyCode == KeyCode.A) {
+      engine.moveCamLeft();
+    }
+    if (event.keyCode == KeyCode.D) {
+      engine.moveCamRight();
     }
   }
 
@@ -52,23 +66,23 @@ class InputController {
       // We don't respond to keyboard commands if we don't own the mouse
       return;
     }
-    if (event.keyCode == keyCodeLeft) {
+    if (event.keyCode == KeyCode.LEFT) {
       //solarSystem.selectPreviousPlanet();
     }
-    if (event.keyCode == keyCodeRight) {
+    if (event.keyCode == KeyCode.LEFT) {
       //solarSystem.selectNextPlanet();
     }
-    if (event.keyCode == keyCodeJ) {
-      //solarSystem.selectPlanet('Jupiter');
+    if (event.keyCode == KeyCode.W) {
+      engine.moveCamForward();
     }
-    if (event.keyCode == keyCodeS) {
-      //solarSystem.selectPlanet('Sun');
+    if (event.keyCode == KeyCode.S) {
+      engine.moveCamBackward();
     }
-    if (event.keyCode == keyCodeF) {
-      //toggleFullscreen();
+    if (event.keyCode == KeyCode.A) {
+      engine.moveCamLeft();
     }
-    if (event.keyCode == keyCodeE) {
-      //solarSystem.selectPlanet('Earth');
+    if (event.keyCode == KeyCode.D) {
+      engine.moveCamRight();
     }
   }
 
