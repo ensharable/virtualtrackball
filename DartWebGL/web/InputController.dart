@@ -40,12 +40,41 @@ class InputController {
       // We don't respond to keyboard commands if we don't own the mouse
       return;
     }
-    
-    if (event.keyCode == KeyCode.LEFT) {
-      //solarSystem.selectPreviousPlanet();
+    var keyCode = event.keyCode;
+    switch (keyCode) {
+      case KeyCode.UP:
+        engine.rotateCamUp();
+        break;
+      case KeyCode.DOWN:
+        engine.rotateCamDown();
+        break;
+      case KeyCode.LEFT:
+        engine.rotateCamLeft();
+        break;
+      case KeyCode.RIGHT:
+        engine.rotateCamRight();
+        break;
+      case KeyCode.W:
+        engine.moveCamForward();
+        break;
+      case KeyCode.S:
+        engine.moveCamBackward();
+        break;
+      case KeyCode.A:
+        engine.moveCamLeft();
+        break;
+      case KeyCode.D:
+        engine.moveCamRight();
+        break;
     }
-    if (event.keyCode == KeyCode.LEFT) {
-      //solarSystem.selectNextPlanet();
+    
+    /*
+    
+    if (event.keyCode == KeyCode.UP) {
+      engine.rotateCamUp();
+    }
+    if (event.keyCode == KeyCode.DOWN) {
+      engine.rotateCamDown();
     }
     if (event.keyCode == KeyCode.W) {
       engine.moveCamForward();
@@ -59,30 +88,13 @@ class InputController {
     if (event.keyCode == KeyCode.D) {
       engine.moveCamRight();
     }
+    */
   }
 
   void keyup(KeyboardEvent event) {
     if (!ownMouse) {
       // We don't respond to keyboard commands if we don't own the mouse
       return;
-    }
-    if (event.keyCode == KeyCode.LEFT) {
-      //solarSystem.selectPreviousPlanet();
-    }
-    if (event.keyCode == KeyCode.LEFT) {
-      //solarSystem.selectNextPlanet();
-    }
-    if (event.keyCode == KeyCode.W) {
-      engine.moveCamForward();
-    }
-    if (event.keyCode == KeyCode.S) {
-      engine.moveCamBackward();
-    }
-    if (event.keyCode == KeyCode.A) {
-      engine.moveCamLeft();
-    }
-    if (event.keyCode == KeyCode.D) {
-      engine.moveCamRight();
     }
   }
 

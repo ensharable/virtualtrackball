@@ -96,14 +96,14 @@ class MotionEngine{
   /**
    * http://mathworld.wolfram.com/PerpendicularVector.html
    */
-  void moveCamLeft(){
+  void moveCamRight(){
     Vector2 v = cam.lookAtDirection.xz;
     v.normalize();
     v.postmultiply(counterClockWiseM);
     cam.eyePosition.x -= v.x * speed;
     cam.eyePosition.z -= v.y * speed;
   }
-  void moveCamRight(){
+  void moveCamLeft(){
     Vector2 v = cam.lookAtDirection.xz;
     v.normalize();
     v.postmultiply(clockWiseM);
@@ -112,16 +112,20 @@ class MotionEngine{
   }
   
   void rotateCamUp(){
-    
+    Matrix3 m = new Matrix3.rotationX(-0.01);
+    cam.lookAtDirection.postmultiply(m);
   }
   void rotateCamDown(){
-    
+    Matrix3 m = new Matrix3.rotationX(0.01);
+    cam.lookAtDirection.postmultiply(m);
   }
   void rotateCamLeft(){
-  
+    Matrix3 m = new Matrix3.rotationY(0.01);
+    cam.lookAtDirection.postmultiply(m);  
   }
   void rotateCamRight(){
-  
+    Matrix3 m = new Matrix3.rotationY(-0.01);
+    cam.lookAtDirection.postmultiply(m);
   }
   
 }
