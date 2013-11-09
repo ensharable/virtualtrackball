@@ -7,16 +7,15 @@ class MotionEngine{
   Strip strip;
   ObjectViewerShader shader;
   WebGL.RenderingContext glContext;
-  Camera cam = new Camera();
-  var speed = 0.1; 
-  Matrix2 counterClockWiseM = new Matrix2(0.0, 1.0, -1.0, 0.0);
-  Matrix2 clockWiseM = new Matrix2(0.0, -1.0, 1.0, 0.0);
+  Camera cam;
   
-  MotionEngine(WebGL.RenderingContext glContext){
+  
+  MotionEngine(WebGL.RenderingContext glContext, Camera camera){
     this.glContext = glContext;
     shader = new ObjectViewerShader(glContext);
     shader.prepare();
     shader.enable();
+    cam = camera;
     
     Vector3 v = new Vector3(0.0, 0.0, -6.0);
     _tranMatrix = new Matrix4.translation(v);
@@ -79,53 +78,5 @@ class MotionEngine{
     window.animationFrame.then(update);
   }
   
-  void moveCamForward(){
-    Vector2 v = cam.lookAtDirection.xz;
-    v.normalize();
-    cam.eyePosition.x += v.x * speed;
-    cam.eyePosition.z += v.y * speed;
-  }
-  
-  void moveCamBackward(){
-    Vector2 v = cam.lookAtDirection.xz;
-    v.normalize();
-    cam.eyePosition.x -= v.x * speed;
-    cam.eyePosition.z -= v.y * speed;
-  }
-  
-  /**
-   * http://mathworld.wolfram.com/PerpendicularVector.html
-   */
-  void moveCamRight(){
-    Vector2 v = cam.lookAtDirection.xz;
-    v.normalize();
-    v.postmultiply(counterClockWiseM);
-    cam.eyePosition.x -= v.x * speed;
-    cam.eyePosition.z -= v.y * speed;
-  }
-  void moveCamLeft(){
-    Vector2 v = cam.lookAtDirection.xz;
-    v.normalize();
-    v.postmultiply(clockWiseM);
-    cam.eyePosition.x -= v.x * speed;
-    cam.eyePosition.z -= v.y * speed;
-  }
-  
-  void rotateCamUp(){
-    Matrix3 m = new Matrix3.rotationX(-0.01);
-    cam.lookAtDirection.postmultiply(m);
-  }
-  void rotateCamDown(){
-    Matrix3 m = new Matrix3.rotationX(0.01);
-    cam.lookAtDirection.postmultiply(m);
-  }
-  void rotateCamLeft(){
-    Matrix3 m = new Matrix3.rotationY(0.01);
-    cam.lookAtDirection.postmultiply(m);  
-  }
-  void rotateCamRight(){
-    Matrix3 m = new Matrix3.rotationY(-0.01);
-    cam.lookAtDirection.postmultiply(m);
-  }
-  
+ 
 }

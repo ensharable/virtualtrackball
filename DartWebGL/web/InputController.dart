@@ -4,11 +4,11 @@ class InputController {
   CanvasElement canvas;
   bool ownMouse = false;
   MouseSphereCameraController controller = new MouseSphereCameraController();
-  MotionEngine engine;
+  Camera cam;
   
-  InputController(CanvasElement canvas, MotionEngine engine){
+  InputController(CanvasElement canvas, Camera camera){
     this.canvas = canvas;
-    this.engine = engine;
+    this.cam = camera;
     inputBind();
   }
   
@@ -43,52 +43,31 @@ class InputController {
     var keyCode = event.keyCode;
     switch (keyCode) {
       case KeyCode.UP:
-        engine.rotateCamUp();
+        cam.rotateCamUp();
         break;
       case KeyCode.DOWN:
-        engine.rotateCamDown();
+        cam.rotateCamDown();
         break;
       case KeyCode.LEFT:
-        engine.rotateCamLeft();
+        cam.rotateCamLeft();
         break;
       case KeyCode.RIGHT:
-        engine.rotateCamRight();
+        cam.rotateCamRight();
         break;
       case KeyCode.W:
-        engine.moveCamForward();
+        cam.moveCamForward();
         break;
       case KeyCode.S:
-        engine.moveCamBackward();
+        cam.moveCamBackward();
         break;
       case KeyCode.A:
-        engine.moveCamLeft();
+        cam.moveCamLeft();
         break;
       case KeyCode.D:
-        engine.moveCamRight();
+        cam.moveCamRight();
         break;
     }
     
-    /*
-    
-    if (event.keyCode == KeyCode.UP) {
-      engine.rotateCamUp();
-    }
-    if (event.keyCode == KeyCode.DOWN) {
-      engine.rotateCamDown();
-    }
-    if (event.keyCode == KeyCode.W) {
-      engine.moveCamForward();
-    }
-    if (event.keyCode == KeyCode.S) {
-      engine.moveCamBackward();
-    }
-    if (event.keyCode == KeyCode.A) {
-      engine.moveCamLeft();
-    }
-    if (event.keyCode == KeyCode.D) {
-      engine.moveCamRight();
-    }
-    */
   }
 
   void keyup(KeyboardEvent event) {

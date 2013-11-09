@@ -13,6 +13,10 @@ class Camera {
   double zFar;
   double aspectRatio;
   double fOV;
+  
+  var speed = 0.1; 
+  Matrix2 counterClockWiseM = new Matrix2(0.0, 1.0, -1.0, 0.0);
+  Matrix2 clockWiseM = new Matrix2(0.0, -1.0, 1.0, 0.0);
 
   Camera() {
     eyePosition = new Vector3(0.0, 0.0, 0.0);
@@ -100,4 +104,66 @@ class Camera {
   }
 
   Vector3 get frontDirection => lookAtPosition - eyePosition;
+  
+  
+  
+  /*
+   *  move the camera in the lookatdirection.
+   */
+  void moveCamForward(){
+    Vector2 v = lookAtDirection.xz;
+    v.normalize();
+    eyePosition.x += v.x * speed;
+    eyePosition.z += v.y * speed;
+  }
+  
+  void moveCamBackward(){
+    Vector2 v = lookAtDirection.xz;
+    v.normalize();
+    eyePosition.x -= v.x * speed;
+    eyePosition.z -= v.y * speed;
+  }
+  
+  /**
+   * http://mathworld.wolfram.com/PerpendicularVector.html
+   */
+  void moveCamRight(){
+    Vector2 v = lookAtDirection.xz;
+    v.normalize();
+    v.postmultiply(counterClockWiseM);
+    eyePosition.x -= v.x * speed;
+    eyePosition.z -= v.y * speed;
+  }
+  void moveCamLeft(){
+    Vector2 v = lookAtDirection.xz;
+    v.normalize();
+    v.postmultiply(clockWiseM);
+    eyePosition.x -= v.x * speed;
+    eyePosition.z -= v.y * speed;
+  }
+  
+  
+  void rotateCamUp(){
+    //find the camera axis
+    Vector3 temp = lookAtDirection.cross(upDirection);
+    Matrix4 m = new Matrix4.identity();
+    m.rotate(temp, -0.01);
+    lookAtDirection.postmultiply(m.getRotation());
+  }
+  void rotateCamDown(){
+    Vector3 temp = lookAtDirection.cross(upDirection);
+    Matrix4 m = new Matrix4.identity();
+    m.rotate(temp, 0.01);
+    lookAtDirection.postmultiply(m.getRotation());
+  }
+  void rotateCamLeft(){
+    Matrix4 m = new Matrix4.identity();
+    m.rotate(upDirection, -0.01);
+    lookAtDirection.postmultiply(m.getRotation());
+  }
+  void rotateCamRight(){
+    Matrix4 m = new Matrix4.identity();
+    m.rotate(upDirection, 0.01);
+    lookAtDirection.postmultiply(m.getRotation());
+  }
 }
