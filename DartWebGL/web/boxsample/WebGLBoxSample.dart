@@ -12,7 +12,7 @@ import 'package:vector_math/vector_math.dart';
 part 'boxviewer.dart';
 part '../shaders/shader.dart';
 part '../shaders/objectviewer_shader.dart';
-part '../camera.dart';
+part '../utilities/camera.dart';
 part '../objects/shapes.dart';
 part '../objects/box.dart';
 
