@@ -42,16 +42,16 @@ class InputController {
     }
     var keyCode = event.keyCode;
     switch (keyCode) {
-      case KeyCode.UP:
+      case KeyCode.I:
         cam.rotateCamUp();
         break;
-      case KeyCode.DOWN:
+      case KeyCode.K:
         cam.rotateCamDown();
         break;
-      case KeyCode.LEFT:
+      case KeyCode.J:
         cam.rotateCamLeft();
         break;
-      case KeyCode.RIGHT:
+      case KeyCode.L:
         cam.rotateCamRight();
         break;
       case KeyCode.W:
