@@ -9,9 +9,6 @@ class Objectviewer{
     int get width => canvas.width;
     int get height => canvas.height;
     
-    ObjectViewerShader shader;
-    Matrix4 mvMatrix;
-
     void startup(String canvasId) {
       canvas = querySelector(canvasId);
       glContext = canvas.getContext('experimental-webgl');

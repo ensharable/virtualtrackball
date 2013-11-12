@@ -3,16 +3,20 @@ part of objectviewer;
 class MotionEngine{
   Matrix4 _tranMatrix = new Matrix4.identity();
   Box abox;
+  BoxWithTexture boxWithTexture;
   Hexagon hexagon;
   Strip strip;
-  ObjectViewerShader shader;
+  //ObjectViewerShader shader;
+  TextureShader shader;
   WebGL.RenderingContext glContext;
   Camera cam;
   
   
   MotionEngine(WebGL.RenderingContext glContext, Camera camera){
     this.glContext = glContext;
-    shader = new ObjectViewerShader(glContext);
+    
+    //shader = new ObjectViewerShader(glContext);
+    shader = new TextureShader(glContext);
     shader.prepare();
     shader.enable();
     cam = camera;
@@ -28,6 +32,10 @@ class MotionEngine{
     
     strip = new Strip(glContext, shader.program);
     strip.setupBuffers();
+    
+    boxWithTexture = new BoxWithTexture(glContext, shader.program);
+    boxWithTexture.setupBuffers();
+    boxWithTexture.setupTexture();
   }
   
   void start(){
@@ -59,6 +67,12 @@ class MotionEngine{
     
     shader.mvUniform = _tranMatrix;
     
+    
+    boxWithTexture.modifyShaderAttributes();
+    boxWithTexture.prerender();
+    boxWithTexture.render();
+
+    /*
     abox.modifyShaderAttributes();
     abox.prerender();
     abox.render();
@@ -70,7 +84,7 @@ class MotionEngine{
     strip.modifyShaderAttributes();
     strip.prerender();
     strip.render();
-    
+    */    
     requestRedraw();
   }
   

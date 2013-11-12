@@ -32,9 +32,13 @@ class Shader {
     gl.attachShader(program, vertexShader);
     gl.attachShader(program, fragmentShader);
     gl.linkProgram(program);
+    
+    if (!gl.getProgramParameter(program, WebGL.LINK_STATUS)) {
+      print('Unable to initialize the shader program.');
+    }
+    
     print(gl.getProgramInfoLog(program));
     
-    printLog(gl.getProgramInfoLog(program));
     dumpUniforms(gl);
     dumpAttributes(gl);
   }
