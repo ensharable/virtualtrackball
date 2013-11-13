@@ -13,6 +13,8 @@ part 'objectviewer.dart';
 part 'shaders/shader.dart';
 part 'shaders/objectviewer_shader.dart';
 part 'shaders/texture_shader.dart';
+part 'shaders/texture_light_shader.dart';
+
 
 part 'utilities/sphere_controller.dart';
 part 'utilities/camera.dart';

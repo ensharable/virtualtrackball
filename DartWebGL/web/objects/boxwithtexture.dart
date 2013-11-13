@@ -4,11 +4,13 @@ class BoxWithTexture extends Shapes {
   WebGL.Buffer indexBuffer;
   WebGL.Buffer vertexBuffer;
   WebGL.Buffer verticesTextureCoordBuffer;
+  WebGL.Buffer verticesNormalBuffer;
   WebGL.Texture texture;
   int _vertexCount=36;  //this is becuse of the box data
   int _vertexStride=0; //this is becuse of the box data
   int _positionAttributeIndex;
   int _textureCoordAttribute;
+  int _vertexNormalAttribute;
   var baseUrl;
   
   BoxWithTexture(WebGL.RenderingContext gl, WebGL.Program p) : super(gl, p){
@@ -126,7 +128,53 @@ class BoxWithTexture extends Shapes {
     _gl.bufferDataTyped(WebGL.RenderingContext.ARRAY_BUFFER,
         vertexTextureArray,
                   WebGL.RenderingContext.STATIC_DRAW);
-
+    
+    //normal
+    var vertexNormals = [
+                         // Front
+                         0.0,  0.0,  1.0,
+                         0.0,  0.0,  1.0,
+                         0.0,  0.0,  1.0,
+                         0.0,  0.0,  1.0,
+                         
+                         // Back
+                         0.0,  0.0, -1.0,
+                         0.0,  0.0, -1.0,
+                         0.0,  0.0, -1.0,
+                         0.0,  0.0, -1.0,
+                         
+                         // Top
+                         0.0,  1.0,  0.0,
+                         0.0,  1.0,  0.0,
+                         0.0,  1.0,  0.0,
+                         0.0,  1.0,  0.0,
+                         
+                         // Bottom
+                         0.0, -1.0,  0.0,
+                         0.0, -1.0,  0.0,
+                         0.0, -1.0,  0.0,
+                         0.0, -1.0,  0.0,
+                         
+                         // Right
+                         1.0,  0.0,  0.0,
+                         1.0,  0.0,  0.0,
+                         1.0,  0.0,  0.0,
+                         1.0,  0.0,  0.0,
+                         
+                         // Left
+                         -1.0,  0.0,  0.0,
+                         -1.0,  0.0,  0.0,
+                         -1.0,  0.0,  0.0,
+                         -1.0,  0.0,  0.0
+                         ];
+    verticesNormalBuffer = _gl.createBuffer();
+    _gl.bindBuffer(WebGL.RenderingContext.ARRAY_BUFFER, verticesNormalBuffer);
+    //cover the arry to Float32List
+    Float32List vertexNormalsArray = new Float32List.fromList(vertexNormals);
+    //fill the buff using the data in Float32List
+    _gl.bufferDataTyped(WebGL.RenderingContext.ARRAY_BUFFER,
+        vertexNormalsArray,
+                  WebGL.RenderingContext.STATIC_DRAW);
   }
   
   void setupTexture(){
@@ -165,6 +213,8 @@ class BoxWithTexture extends Shapes {
     _textureCoordAttribute = _gl.getAttribLocation(_program, "aTextureCoord");
     _gl.enableVertexAttribArray(_textureCoordAttribute);
     
+    _vertexNormalAttribute = _gl.getAttribLocation(_program, "aVertexNormal");
+    _gl.enableVertexAttribArray(_vertexNormalAttribute);
   }
 
   void prerender() {
@@ -187,6 +237,10 @@ class BoxWithTexture extends Shapes {
     _gl.activeTexture(WebGL.RenderingContext.TEXTURE0);
     _gl.bindTexture(WebGL.RenderingContext.TEXTURE_2D, texture);
     _gl.uniform1i(_gl.getUniformLocation(_program, 'uSampler'), 0);
+    
+    //bind the normal
+    _gl.bindBuffer(WebGL.RenderingContext.ARRAY_BUFFER, verticesNormalBuffer);
+    _gl.vertexAttribPointer(_vertexNormalAttribute, 3, WebGL.RenderingContext.FLOAT, false, 0, 0);
   }
   
 

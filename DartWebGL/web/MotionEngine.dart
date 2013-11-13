@@ -8,6 +8,8 @@ class MotionEngine{
   Strip strip;
   ObjectViewerShader objectViewershader;
   TextureShader shader;
+  TextureLightShader textureLightShader;
+  
   WebGL.RenderingContext glContext;
   Camera cam;
   
@@ -23,6 +25,10 @@ class MotionEngine{
     shader.prepare();
     shader.enable();
     
+    textureLightShader =  new TextureLightShader(glContext);
+    textureLightShader.prepare();
+    textureLightShader.enable();
+
     cam = camera;
     
     Vector3 v = new Vector3(0.0, 0.0, -6.0);
@@ -37,7 +43,7 @@ class MotionEngine{
     strip = new Strip(glContext, objectViewershader.program);
     strip.setupBuffers();
     
-    boxWithTexture = new BoxWithTexture(glContext, shader.program);
+    boxWithTexture = new BoxWithTexture(glContext, textureLightShader.program);
     boxWithTexture.setupBuffers();
     boxWithTexture.setupTexture();
   }
@@ -73,14 +79,26 @@ class MotionEngine{
     //moveCamLeft();
     //moveCamRight();
     
+    /*
     //use texture shader
     shader.enable();
     shader.pUniform = projectionMatrix;
     shader.mvUniform = _tranMatrix;
     boxWithTexture.modifyShaderAttributes();
     boxWithTexture.prerender();
+    boxWithTexture.render();    
+    */
+    
+    textureLightShader.enable();
+    textureLightShader.pUniform = projectionMatrix;
+    textureLightShader.mvUniform = _tranMatrix;
+    Matrix4 norM = _tranMatrix.clone();
+    norM.invert();
+    norM.transpose();
+    textureLightShader.normalUniform = norM;
+    boxWithTexture.modifyShaderAttributes();
+    boxWithTexture.prerender();
     boxWithTexture.render();
-
     
     //use simple color shader
     objectViewershader.enable();
@@ -103,6 +121,8 @@ class MotionEngine{
   void requestRedraw() {
     window.animationFrame.then(update);
   }
+  
+  
   
  
 }
