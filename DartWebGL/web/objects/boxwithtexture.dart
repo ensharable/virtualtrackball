@@ -61,7 +61,7 @@ class BoxWithTexture extends Shapes {
     vertexBuffer = _gl.createBuffer();
     _gl.bindBuffer(WebGL.RenderingContext.ARRAY_BUFFER, vertexBuffer);
     //cover the arry to Float32List
-    var vertexArray = new Float32List.fromList(vertices);
+    Float32List vertexArray = new Float32List.fromList(vertices);
     //fill the buff using the data in Float32List
     _gl.bufferDataTyped(WebGL.RenderingContext.ARRAY_BUFFER,
                   vertexArray,
@@ -77,7 +77,7 @@ class BoxWithTexture extends Shapes {
            16, 17, 18,     16, 18, 19,   // right
            20, 21, 22,     20, 22, 23    // left
            ];
-    var indexArray = new Uint16List.fromList(vertexIndices);
+    Uint16List indexArray = new Uint16List.fromList(vertexIndices);
     indexBuffer = _gl.createBuffer();
     _gl.bindBuffer(WebGL.RenderingContext.ELEMENT_ARRAY_BUFFER, indexBuffer);
     _gl.bufferDataTyped(WebGL.RenderingContext.ELEMENT_ARRAY_BUFFER,
@@ -121,7 +121,7 @@ class BoxWithTexture extends Shapes {
     verticesTextureCoordBuffer = _gl.createBuffer();
     _gl.bindBuffer(WebGL.RenderingContext.ARRAY_BUFFER, verticesTextureCoordBuffer);
     //cover the arry to Float32List
-    var vertexTextureArray = new Float32List.fromList(textureCoordinates);
+    Float32List vertexTextureArray = new Float32List.fromList(textureCoordinates);
     //fill the buff using the data in Float32List
     _gl.bufferDataTyped(WebGL.RenderingContext.ARRAY_BUFFER,
         vertexTextureArray,
@@ -139,8 +139,8 @@ class BoxWithTexture extends Shapes {
     ImageElement img = new ImageElement();
     Completer c = new Completer();
     img.onLoad.listen((_) {
-      _gl.bindTexture(WebGL.TEXTURE_2D, texture);
-      _gl.texImage2D(WebGL.TEXTURE_2D,
+      _gl.bindTexture(WebGL.RenderingContext.TEXTURE_2D, texture);
+      _gl.texImage2D(WebGL.RenderingContext.TEXTURE_2D,
                     0,
                     WebGL.RenderingContext.RGBA,
                     WebGL.RenderingContext.RGBA,
@@ -184,8 +184,8 @@ class BoxWithTexture extends Shapes {
     _gl.vertexAttribPointer(_textureCoordAttribute, 2, WebGL.RenderingContext.FLOAT, false, 0, 0);
 
     // Specify the texture to map onto the faces
-    _gl.activeTexture(WebGL.TEXTURE0);
-    _gl.bindTexture(WebGL.TEXTURE_2D, texture);
+    _gl.activeTexture(WebGL.RenderingContext.TEXTURE0);
+    _gl.bindTexture(WebGL.RenderingContext.TEXTURE_2D, texture);
     _gl.uniform1i(_gl.getUniformLocation(_program, 'uSampler'), 0);
   }
   

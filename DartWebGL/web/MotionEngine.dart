@@ -54,8 +54,13 @@ class MotionEngine{
   Matrix4 get tranMatrix => _tranMatrix;
   
   void update(double time){
+    
     glContext.viewport(0, 0, 500, 500);
     glContext.clear(WebGL.RenderingContext.COLOR_BUFFER_BIT | WebGL.RenderingContext.DEPTH_BUFFER_BIT);
+    
+    //glContext.enable(WebGL.RenderingContext.CULL_FACE);
+    glContext.depthFunc(WebGL.RenderingContext.LEQUAL);  
+    glContext.enable(WebGL.RenderingContext.DEPTH_TEST);
     
     //set the matrix:
     var projectionMatrix = cam.projectionMatrix;
