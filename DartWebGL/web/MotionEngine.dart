@@ -13,6 +13,8 @@ class MotionEngine{
   WebGL.RenderingContext glContext;
   Camera cam;
   
+  double angleSpeed = 0.002;
+  
   
   MotionEngine(WebGL.RenderingContext glContext, Camera camera){
     this.glContext = glContext;
@@ -57,6 +59,12 @@ class MotionEngine{
     _tranMatrix = _tranMatrix*temp;
   }
   
+  void rotation(){
+    Matrix4 temp = new Matrix4.rotationY(angleSpeed);
+    _tranMatrix = _tranMatrix*temp;
+  }
+  
+  
   Matrix4 get tranMatrix => _tranMatrix;
   
   void update(double time){
@@ -74,6 +82,8 @@ class MotionEngine{
     projectionMatrix.multiply(viewMatrix);
     
     //move();
+    rotation();
+    
     //moveCamForward();
     //moveCamBackward();
     //moveCamLeft();
@@ -122,7 +132,6 @@ class MotionEngine{
     window.animationFrame.then(update);
   }
   
-  
-  
+
  
 }
