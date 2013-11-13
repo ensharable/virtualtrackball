@@ -132,6 +132,4 @@ class MotionEngine{
     window.animationFrame.then(update);
   }
   
-
- 
 }
