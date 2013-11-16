@@ -182,7 +182,7 @@ class BoxWithTexture extends Shapes {
   }
   
   void loadImage() {
-    var name = "cubetexture.png";
+    var name = "Dart_Logo.png";
     texture = _gl.createTexture();
     ImageElement img = new ImageElement();
     Completer c = new Completer();
