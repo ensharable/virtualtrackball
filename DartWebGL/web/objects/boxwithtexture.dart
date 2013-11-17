@@ -16,6 +16,7 @@ class BoxWithTexture extends Shapes {
   BoxWithTexture(WebGL.RenderingContext gl, WebGL.Program p) : super(gl, p){
     baseUrl= getBaseUrl();
     baseUrl = '${baseUrl}textures/';
+    //baseUrl = '${baseUrl}static/ensharable/images/lab/';
   }
 
   void setupBuffers() {

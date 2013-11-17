@@ -69,7 +69,7 @@ class MotionEngine{
   
   void update(double time){
     
-    glContext.viewport(0, 0, 500, 500);
+    glContext.viewport(0, 0, cam.screenWidth, cam.screenHeight);
     glContext.clear(WebGL.RenderingContext.COLOR_BUFFER_BIT | WebGL.RenderingContext.DEPTH_BUFFER_BIT);
     
     //glContext.enable(WebGL.RenderingContext.CULL_FACE);

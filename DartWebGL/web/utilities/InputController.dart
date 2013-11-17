@@ -33,6 +33,14 @@ class InputController {
       canvas.requestFullscreen();
     }
   }
+  
+  void fullscreenChange(Event event) {
+    canvas.width = canvas.parent.client.width;
+    canvas.height = canvas.parent.client.height;
+    cam.aspectRatio = canvas.width / canvas.height;
+    cam.screenWidth = canvas.width;
+    cam.screenHeight = canvas.height;
+  }
 
 
   void keydown(KeyboardEvent event) {
@@ -66,6 +74,9 @@ class InputController {
       case KeyCode.D:
         cam.moveCamRight();
         break;
+      case KeyCode.F:
+        toggleFullscreen();
+        break;
     }
     
   }
@@ -86,6 +97,7 @@ class InputController {
     event.preventDefault();
   }
 
+  /*
   void mouseWheel(MouseEvent event) {
     if (!ownMouse) {
       // We don't rotate the view if we don't own the mouse
@@ -99,6 +111,7 @@ class InputController {
     }
     event.preventDefault();
   }
+  */
 
  
   // Bind input event callbacks
@@ -108,7 +121,8 @@ class InputController {
     document.onKeyDown.listen(keydown);
     document.onKeyUp.listen(keyup);
     document.onMouseMove.listen(mouseMove);
-    window.onMouseWheel.listen(mouseWheel);
+    //window.onMouseWheel.listen(mouseWheel);
+    document.onFullscreenChange.listen(fullscreenChange);
   }
   
 }

@@ -43,4 +43,5 @@ void printLog(String log) {
 String getBaseUrl() {
   var location = window.location.href;
   return "${location.substring(0, location.length - "webgltest.html".length)}";
+  //return "${location.substring(0, location.length - "webgltest.html".length - 4)}";
 }

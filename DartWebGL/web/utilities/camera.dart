@@ -13,6 +13,8 @@ class Camera {
   double zFar;
   double aspectRatio;
   double fOV;
+  int screenWidth;
+  int screenHeight;
   
   var speed = 0.1; 
   Matrix2 counterClockWiseM = new Matrix2(0.0, 1.0, -1.0, 0.0);

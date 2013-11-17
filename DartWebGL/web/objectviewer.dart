@@ -16,10 +16,14 @@ class Objectviewer{
         canvas.parent.text = ">>> Browser does not support WebGL <<<";
         return;
       }
-      //canvas.width = canvas.parent.client.width;
-      //canvas.height = canvas.parent.client.height;
+      
+      canvas.width = canvas.parent.client.width;
+      canvas.height = canvas.parent.client.height;
       
       camera.aspectRatio = canvas.width / canvas.height;
+      camera.screenWidth = canvas.width;
+      camera.screenHeight = canvas.height;
+      
       
       var me = new MotionEngine(glContext, camera);
       InputController contrller = new InputController(this.canvas, camera);
