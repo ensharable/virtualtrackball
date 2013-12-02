@@ -1,4 +1,4 @@
-part of objectviewer;
+part of WebGLUtils;
 
 class TextureLightShader {
   Shader shader;

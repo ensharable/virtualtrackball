@@ -1,6 +1,6 @@
-part of objectviewer;
+part of WebGLUtils;
 
-class TextureShader {
+class ObjectViewerShader {
   Shader shader;
   WebGL.Program get program => shader.program;
   WebGL.RenderingContext gl;
@@ -9,7 +9,7 @@ class TextureShader {
   Float32List _mvUniform;
   Float32List _pUniform;
 
-  TextureShader(WebGL.RenderingContext gl) {
+  ObjectViewerShader(WebGL.RenderingContext gl) {
     this.gl = gl;
     shader = new Shader(_vertexShader, _fragmentShader);
     _mvUniform = new Float32List(16);
@@ -38,29 +38,27 @@ class TextureShader {
   }
 
   
+}
 
 final String _vertexShader = '''
-    attribute vec3 aVertexPosition;
-    attribute vec2 aTextureCoord;
-  
+   attribute vec3 aVertexPosition;
+    attribute vec4 aVertexColor;
+
     uniform mat4 uMVMatrix;
     uniform mat4 uPMatrix;
-    
-    varying highp vec2 vTextureCoord;
-  
+
+    varying lowp vec4 vColor;
+
     void main(void) {
-      gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
-      vTextureCoord = aTextureCoord;
+    gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+    vColor = aVertexColor;
     }
 ''';
 
 final String _fragmentShader = '''
-   varying highp vec2 vTextureCoord;
+    varying lowp vec4 vColor;
       
-   uniform sampler2D uSampler;
-      
-   void main(void) {
-     gl_FragColor = texture2D(uSampler, vec2(vTextureCoord.s, vTextureCoord.t));
-    }
+      void main(void) {
+        gl_FragColor = vColor;
+      }
 ''';
-}

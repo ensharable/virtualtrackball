@@ -1,11 +1,7 @@
-part of objectviewer;
+part of WebGLUtils;
 
-class MotionEngine{
+class LoaderTestEngine{
   Matrix4 _tranMatrix = new Matrix4.identity();
-  Box abox;
-  BoxWithTexture boxWithTexture;
-  Hexagon hexagon;
-  Strip strip;
   ObjectViewerShader objectViewershader;
   TextureShader shader;
   TextureLightShader textureLightShader;
@@ -18,7 +14,7 @@ class MotionEngine{
   
   MaterialManager mm = new MaterialManager();
   
-  MotionEngine(WebGL.RenderingContext glContext, Camera camera){
+  LoaderTestEngine(WebGL.RenderingContext glContext, Camera camera){
     this.glContext = glContext;
     
     objectViewershader = new ObjectViewerShader(glContext);
@@ -37,19 +33,6 @@ class MotionEngine{
     
     Vector3 v = new Vector3(0.0, 0.0, -6.0);
     _tranMatrix = new Matrix4.translation(v);
-    
-    abox = new Box(glContext, objectViewershader.program);
-    abox.setupBuffers();
-    
-    hexagon = new Hexagon(glContext, objectViewershader.program);
-    hexagon.setupBuffers();
-    
-    strip = new Strip(glContext, objectViewershader.program);
-    strip.setupBuffers();
-    
-    boxWithTexture = new BoxWithTexture(glContext, textureLightShader.program);
-    boxWithTexture.setupBuffers();
-    boxWithTexture.setupTexture();
     
     
     String modelUrl=getBaseUrl()+"/3dmodels/box_triangle_mesh.obj";
@@ -113,26 +96,6 @@ class MotionEngine{
     //moveCamLeft();
     //moveCamRight();
     
-    /*
-    //use texture shader
-    shader.enable();
-    shader.pUniform = projectionMatrix;
-    shader.mvUniform = _tranMatrix;
-    boxWithTexture.modifyShaderAttributes();
-    boxWithTexture.prerender();
-    boxWithTexture.render();    
-    */
-    
-    textureLightShader.enable();
-    textureLightShader.pUniform = projectionMatrix;
-    textureLightShader.mvUniform = _tranMatrix;
-    Matrix4 norM = _tranMatrix.clone();
-    norM.invert();
-    norM.transpose();
-    textureLightShader.normalUniform = norM;
-    boxWithTexture.modifyShaderAttributes();
-    boxWithTexture.prerender();
-    boxWithTexture.render();
     
     //use simple color shader
     objectViewershader.enable();
@@ -140,21 +103,6 @@ class MotionEngine{
     objectViewershader.mvUniform = _tranMatrix;
     
     
-    
-    /*
-    abox.modifyShaderAttributes();
-    abox.prerender();
-    abox.render();
-    */
-    /*
-    hexagon.modifyShaderAttributes();
-    hexagon.prerender();
-    hexagon.render();
-    
-    strip.modifyShaderAttributes();
-    strip.prerender();
-    strip.render();
-    */
     robj.modifyShaderAttributes();
     robj.prerender();
     robj.render();
@@ -165,5 +113,7 @@ class MotionEngine{
   void requestRedraw() {
     window.animationFrame.then(update);
   }
+  
+ 
   
 }

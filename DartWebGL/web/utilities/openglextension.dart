@@ -1,4 +1,4 @@
-part of objectviewer;
+part of WebGLUtils;
 
 Matrix4 makeViewMatrixWithDirection(Vector3 cameraPosition, Vector3 cameraFocusDirection,
                     Vector3 upDirection) {

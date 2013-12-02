@@ -13,7 +13,7 @@ class Box extends Shapes {
   }
 
   void setupBuffers() {
-    assert(_gl != null);
+    assert(super._gl != null);
 
     var vertices = [
       // Front face
