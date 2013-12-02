@@ -49,8 +49,9 @@ class RenderObject{
   void modifyShaderAttributes() {
     _positionAttributeIndex = _gl.getAttribLocation(_p, 'aVertexPosition');
     _gl.enableVertexAttribArray(_positionAttributeIndex);
+    
     _colorAttributeIndex = _gl.getAttribLocation(_p, 'aVertexColor');
-    _gl.enableVertexAttribArray(_colorAttributeIndex);
+    _gl.disableVertexAttribArray(_colorAttributeIndex);
   }
 
   void prerender() {
@@ -64,7 +65,7 @@ class RenderObject{
     //bind the index buffer to shader
     _gl.bindBuffer(WebGL.RenderingContext.ELEMENT_ARRAY_BUFFER, indexBuffer);
     
-    _gl.vertexAttrib4f(_colorAttributeIndex, 0.0, 0.0, 0.0, 1.0);
+    _gl.vertexAttrib4f(_colorAttributeIndex, 1.0, 0.0, 0.0, 1.0);
   }
 
   void render() {

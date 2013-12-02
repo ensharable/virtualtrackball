@@ -25,8 +25,8 @@ class Objectviewer{
       camera.screenHeight = canvas.height;
       
       
-      //var me = new LoaderTestEngine(glContext, camera);
-      var me = new MotionEngine(glContext, camera);
+      var me = new LoaderTestEngine(glContext, camera);
+      //var me = new MotionEngine(glContext, camera);
       InputController contrller = new InputController(this.canvas, camera);
     }
 
