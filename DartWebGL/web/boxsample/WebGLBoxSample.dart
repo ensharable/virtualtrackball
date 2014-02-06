@@ -10,8 +10,8 @@ import 'dart:typed_data';
 import 'package:vector_math/vector_math.dart';
 
 part 'boxviewer.dart';
-part '../shaders/shader.dart';
-part '../shaders/objectviewer_shader.dart';
+part '../utilities/shaders/shader.dart';
+part '../utilities/shaders/objectviewer_shader.dart';
 part '../utilities/camera.dart';
 part '../objects/shapes.dart';
 part '../objects/box.dart';

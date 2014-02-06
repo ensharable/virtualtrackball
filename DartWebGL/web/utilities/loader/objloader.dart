@@ -9,7 +9,7 @@ class ObjLoader{
     });
   }
   
-  static Future<Material> parseObjectTexureFromURL(String url){
+  static Future<Material> parseObjectMaterialFromURL(String url){
     
     return HttpRequest.getString(url).then((String fileContents) {
       return readMaterialString(fileContents);

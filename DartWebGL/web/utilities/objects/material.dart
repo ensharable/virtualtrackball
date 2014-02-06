@@ -5,7 +5,7 @@ class Material {
   String name;
   double shininessOfMateria;
   List<double> ambient;
-  List<double>diffuse;
+  List<double> diffuse;
   List<double> specular;
   double transparent;
   int illuminationMode;

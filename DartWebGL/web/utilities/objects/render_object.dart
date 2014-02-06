@@ -12,6 +12,7 @@ class RenderObject{
   int _positionAttributeIndex;
   int _colorAttributeIndex;
   MaterialManager mm = new MaterialManager();
+  Material m;
   
   RenderObject(WebGL.RenderingContext gl, WebGL.Program p, ObjectModel obj){
     this._gl = gl;
@@ -42,8 +43,7 @@ class RenderObject{
   
   void setupMaterial(){
     var key = _obj.useMaterial;
-    Material m = mm.getMaterial(key);
-    
+    m = mm.getMaterial(key);
   }
   
   void modifyShaderAttributes() {
@@ -65,7 +65,7 @@ class RenderObject{
     //bind the index buffer to shader
     _gl.bindBuffer(WebGL.RenderingContext.ELEMENT_ARRAY_BUFFER, indexBuffer);
     
-    _gl.vertexAttrib4f(_colorAttributeIndex, 1.0, 0.0, 0.0, 1.0);
+    _gl.vertexAttrib4f(_colorAttributeIndex, m.diffuse[0], m.diffuse[1], m.diffuse[2], 1.0);
   }
 
   void render() {

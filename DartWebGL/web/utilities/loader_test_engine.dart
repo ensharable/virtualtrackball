@@ -5,12 +5,14 @@ class LoaderTestEngine{
   ObjectViewerShader objectViewershader;
   TextureShader shader;
   TextureLightShader textureLightShader;
+  ObjectViewerLightShader objectViewerLightShader;
   
   WebGL.RenderingContext glContext;
   Camera cam;
   
   double angleSpeed = 0.002;
   RenderObject robj;
+  BoxWithNormal bwn;
   
   MaterialManager mm = new MaterialManager();
   
@@ -28,18 +30,23 @@ class LoaderTestEngine{
     textureLightShader =  new TextureLightShader(glContext);
     textureLightShader.prepare();
     textureLightShader.enable();
-
+    
+    objectViewerLightShader = new ObjectViewerLightShader(glContext);
+    objectViewerLightShader.prepare();
+    objectViewerLightShader.enable;
+    
     cam = camera;
     
     Vector3 v = new Vector3(0.0, 0.0, -6.0);
     _tranMatrix = new Matrix4.translation(v);
     
     
+    /*
     String modelUrl=getBaseUrl()+"/3dmodels/box_triangle_mesh.obj";
-    String textureUrl=getBaseUrl()+"/3dmodels/box_triangle_mesh.mtl";
+    String materialUrl=getBaseUrl()+"/3dmodels/box_triangle_mesh.mtl";
     ObjectModel obj;
     Future objLoad = ObjLoader.parseObjectModelFromURL(modelUrl);
-    Future textureLoad = ObjLoader.parseObjectTexureFromURL(textureUrl);
+    Future materialLoad = ObjLoader.parseObjectMaterialFromURL(materialUrl);
     
     
     Future first = objLoad.then((ObjectModel result) {
@@ -48,13 +55,18 @@ class LoaderTestEngine{
       
     });
     
-    Future second = textureLoad.then((Material result) {
+    Future second = materialLoad.then((Material result) {
       mm.addMaterial(result);
+      robj.setupMaterial();
     });
     
     Future.wait([first, second]).then((value) {
       start();
     });
+    */
+    bwn = new BoxWithNormal(glContext, objectViewerLightShader.program);
+    bwn.setupBuffers();
+    start();
   }
   
   void start(){
@@ -96,16 +108,23 @@ class LoaderTestEngine{
     //moveCamLeft();
     //moveCamRight();
     
-    
-    //use simple color shader
+    /*
     objectViewershader.enable();
     objectViewershader.pUniform = projectionMatrix;
     objectViewershader.mvUniform = _tranMatrix;
     
-    
     robj.modifyShaderAttributes();
     robj.prerender();
     robj.render();
+    */
+    
+    objectViewerLightShader.enable();
+    objectViewerLightShader.pUniform = projectionMatrix;
+    objectViewerLightShader.mvUniform = _tranMatrix;
+    
+    bwn.modifyShaderAttributes();
+    bwn.prerender();
+    bwn.render();
     
     requestRedraw();
   }
